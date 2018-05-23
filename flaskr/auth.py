@@ -1,4 +1,5 @@
 import functools
+import code
 from flask import(
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -12,6 +13,9 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        # code.interact(local=dict(globals(), **locals()))
+        latitude = str(request.form['latitude'])
+        longitude = str(request.form['longitude'])
         db = get_db()
         error = None
 
@@ -26,7 +30,7 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)', (username, generate_password_hash(password))
+                'INSERT INTO user (username, password, latitude, longitude) VALUES (?, ?, ?, ?)', (username, generate_password_hash(password), latitude, longitude)
             )
             db.commit()
             return redirect(url_for('auth.login'))
