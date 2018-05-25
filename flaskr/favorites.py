@@ -5,13 +5,11 @@ from flask import (
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('dashboard', __name__)
+bp = Blueprint('favorites', __name__, url_prefix='/favorites')
 
 @bp.route('/')
-def index():
+def new():
     if g.user != None:
-        sightings = EbirdService().get_notable_sightings(g.user['latitude'], g.user['longitude'])
-        db = get_db()
-        return render_template('dashboard/index.html', sightings=sightings)
+        return render_template('favorites/new.html')
     else:
         return render_template('dashboard/error.html')
