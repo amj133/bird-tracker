@@ -37,4 +37,8 @@ def create_app(test_config=None):
     app.register_blueprint(favorites.bp)
     app.add_url_rule('/favorites', endpoint='favorites_new')
 
+    from . import favorites_endpoints
+    app.register_blueprint(favorites_endpoints.bp)
+    app.add_url_rule('/api/v1/favorites', methods=['POST'], endpoint='favorites_create')
+
     return app
