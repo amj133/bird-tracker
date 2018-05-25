@@ -13,7 +13,6 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # code.interact(local=dict(globals(), **locals()))
         latitude = str(request.form['latitude'])
         longitude = str(request.form['longitude'])
         db = get_db()

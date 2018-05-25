@@ -7,8 +7,10 @@
   "tests/test_auth.py::test_login_validate_input[a-test-Incorrect username.]", 
   "tests/test_auth.py::test_login_validate_input[billy-b-Incorrect password.]", 
   "tests/test_auth.py::test_logout", 
+  "tests/test_dashboard.py::test_user_dashboard", 
   "tests/test_db.py::test_get_close_db", 
   "tests/test_db.py::test_init_db_command", 
+  "tests/test_ebird_service.py::test_instance_methods_get_notable_sightings", 
   "tests/test_factory.py::test_config", 
   "tests/test_factory.py::test_hello"
 ]

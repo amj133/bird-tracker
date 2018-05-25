@@ -9,7 +9,6 @@ def test_register(client, app):
     response = client.post(
         '/auth/register', data={'username': 'a', 'password': 'b', 'latitude': '33.22', 'longitude': '-55.44'}
     )
-
     assert 'http://localhost/auth/login' == response.headers['Location']
 
     with app.app_context():
