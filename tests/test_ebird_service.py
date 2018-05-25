@@ -1,5 +1,4 @@
 import pytest
-import code
 from mock import MagicMock, patch
 from flask import g, session
 from flaskr.db import get_db
