@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Dashboard - Recent Notable Sightings{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for sighting in sightings %}
+    <article class="post">
+      <header>
+        <div>
+          <h3>{{ sighting.com_name }}</h3>
+          <div class="about">
+            Scientific Name: {{ sighting.sci_name }}<br>
+            Observation Date: {{ sighting.obs_date }}<br>
+            Location: {{ sighting.location }}<br>
+            How Many: {{ sighting.how_many }}
+          </div>
+        </div>
+      </header>
+    </article>
+  {% endfor %}
+{% endblock %}
