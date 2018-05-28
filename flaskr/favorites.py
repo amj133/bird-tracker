@@ -8,6 +8,7 @@ from flaskr.db import get_db
 bp = Blueprint('favorites', __name__, url_prefix='/favorites')
 
 @bp.route('/')
+@login_required
 def new():
     if g.user != None:
         return render_template('favorites/new.html')
