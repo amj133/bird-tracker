@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Favorites - Search for your favorite birds{% endblock %}</h1>
+  <h1>{% block title %}Favorites - Search for your favorite birds by area{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <article class="post">
     <header>
       <div>
-        <form method="">
-          <label for="search">Search By Common or Scientific Name</label>
-          <input type="searh" name="search" id="search" required>
-          <input type="submit" value="Search" class="favorite-search">
-        </form>
+        <label for="latitude">Latitude</label>
+        <input name="latitude" id="latitude" required>
+        <label for="longitude">Longitude</label>
+        <input name="longitude" id="longitude" required>
+        <button value="button" class="favorite-search">Submit</button>
       </div>
     </header>
   </article>
@@ -27,11 +27,23 @@
       fetchBirds()
     })
 
+    const getLatitude = () => {
+      return $('#latitude')[0].value
+    }
+
+    const getLongitude = () => {
+      return $('#longitude')[0].value
+    }
+
     const fetchBirds = () => {
       header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo' }}
-      fetch('https://ebird.org/ws2.0/data/obs/geo/recent?lat=39.94&lng=-105.27&dist=10', header)
+      const lat = getLatitude()
+      const long = getLongitude()
+      const url = `https://ebird.org/ws2.0/data/obs/geo/recent?lat=${lat}&lng=${long}&dist=10`
+      fetch(url, header)
         .then((response) => response.json())
         .then((birds) => {
+          debugger
           birds.sort(function(a, b) {
             if (a.comName < b.comName) {
               return 1;
@@ -42,12 +54,34 @@
           birds.forEach((bird) => {
             if (bird.comName.includes("sp.")) {
             } else {
-              $(".search-results").prepend(`<input type="checkbox" value="${bird.comName}">${bird.comName} (${bird.sciName}) -- ${bird.speciesCode}</option><br>`)
+              $(".search-results").prepend(`<input type="checkbox" value="${bird.speciesCode}" class="bird-info">${bird.comName} (${bird.sciName})</option><br>`)
             }
           })
           $(".add-birds").show();
         })
     };
+
+    const getCheckedBirds = () => {
+      favBirds = []
+      $('.bird-info:checked').each(function(birdInfo) {
+        favBirds.push(this.value)
+      })
+      return favBirds
+    }
+
+    const postPayload = (body) => {
+      return { type: 'POST',
+               url: "/api/v1/favorites",
+               data: body
+             }
+    }
+
+    const addFavoriteBirds = () => {
+      const payload = {}
+      payload["birds"] = getCheckedBirds()
+      $.ajax(postPayload(payload))
+      alert('Added to your favorites!')
+    }
   </script>
 
 
