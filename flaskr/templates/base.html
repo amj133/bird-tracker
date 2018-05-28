@@ -4,11 +4,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <nav>
-  <h1>BirdWatcher</h1>
+  <h1>BirdTracker</h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+      <li><a href="{{ url_for('favorites.index') }}">Favorites</a>
       <li><a href="{{ url_for('favorites.new') }}">Search</a>
       <li><a href="{{ url_for('auth.logout') }}">Logout</a>
     {% else %}
