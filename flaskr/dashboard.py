@@ -8,6 +8,7 @@ from flaskr.db import get_db
 bp = Blueprint('dashboard', __name__)
 
 @bp.route('/')
+@login_required
 def index():
     if g.user != None:
         sightings = EbirdService().get_notable_sightings(g.user['latitude'], g.user['longitude'])
