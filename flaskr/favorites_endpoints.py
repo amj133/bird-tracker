@@ -11,8 +11,6 @@ bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 @login_required
 def create():
     species_codes = request.form.getlist('birds[]')
-    # ipdb.set_trace()
-    # if g.user['id'] == user_id
     db = get_db()
     user_id = g.user['id']
 
@@ -29,4 +27,3 @@ def create():
         db.commit()
 
     return "Favorites Added"
-    # flash("Successfully added to favorites!")

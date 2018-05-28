@@ -17,7 +17,7 @@
           <input name="longitude" id="longitude" required><br>
         </div>
         <button value="button" class="favorite-search">Submit</button>
-      </div>
+      </d iv>
     </header>
   </article>
   <section class="search-results">
@@ -47,7 +47,6 @@
       fetch(url, header)
         .then((response) => response.json())
         .then((birds) => {
-          debugger
           birds.sort(function(a, b) {
             if (a.comName < b.comName) {
               return 1;
@@ -58,7 +57,7 @@
           birds.forEach((bird) => {
             if (bird.comName.includes("sp.")) {
             } else {
-              $(".search-results").prepend(`<input type="checkbox" value="${bird.speciesCode}" class="bird-info">${bird.comName} (${bird.sciName})</option><br>`)
+              $(".search-results").prepend(`<input type="checkbox" value="${bird.speciesCode}/${bird.comName}/${bird.sciName}" class="bird-info">${bird.comName} (${bird.sciName})</option><br>`)
             }
           })
           $(".add-birds").show();
@@ -68,6 +67,7 @@
     const getCheckedBirds = () => {
       favBirds = []
       $('.bird-info:checked').each(function(birdInfo) {
+        debugger
         favBirds.push(this.value)
       })
       return favBirds
