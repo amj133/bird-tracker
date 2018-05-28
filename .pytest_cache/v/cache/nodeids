@@ -7,6 +7,7 @@
   "tests/test_auth.py::test_login_validate_input[a-test-Incorrect username.]", 
   "tests/test_auth.py::test_login_validate_input[billy-b-Incorrect password.]", 
   "tests/test_auth.py::test_logout", 
+  "tests/test_bird.py::test_bird_has_attributes", 
   "tests/test_bird_sighting.py::test_bird_sighting_has_attributes", 
   "tests/test_dashboard.py::test_user_dashboard", 
   "tests/test_db.py::test_get_close_db", 
