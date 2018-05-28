@@ -1,4 +1,5 @@
 from .ebird_service import EbirdService
+from .bird import Bird
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -23,9 +24,10 @@ def index():
     ).fetchall()
     birds = []
     for bird_id in bird_ids:
-        bird = db.execute(
-            'SELECT species_code FROM bird WHERE id = (?)', (bird_id[0],)
+        bird_info = db.execute(
+            'SELECT * FROM bird WHERE id = (?)', (bird_id[0],)
         ).fetchone()
+        bird = Bird(bird_info[2], bird_info[3], bird_info[1])
         birds.append(bird)
 
     render_template('favorites/index.html', birds=birds)
