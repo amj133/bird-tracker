@@ -30,4 +30,4 @@ def index():
         bird = Bird(bird_info[2], bird_info[3], bird_info[1])
         birds.append(bird)
 
-    render_template('favorites/index.html', birds=birds)
+    return render_template('favorites/index.html', birds=birds)
