@@ -4,13 +4,28 @@ from flask import (
 )
 from flaskr.auth import login_required
 from flaskr.db import get_db
+import ipdb
 
 bp = Blueprint('favorites', __name__, url_prefix='/favorites')
 
-@bp.route('/')
+@bp.route('/search')
 @login_required
 def new():
-    if g.user != None:
-        return render_template('favorites/new.html')
-    else:
-        return render_template('dashboard/error.html')
+    return render_template('favorites/new.html')
+
+@bp.route('/')
+@login_required
+def index():
+    db = get_db()
+    user_id = g.user['id']
+    bird_ids = db.execute(
+        'SELECT bird_id FROM user_birds WHERE user_id = (?)', (user_id,)
+    ).fetchall()
+    birds = []
+    for bird_id in bird_ids:
+        bird = db.execute(
+            'SELECT species_code FROM bird WHERE id = (?)', (bird_id[0],)
+        ).fetchone()
+        birds.append(bird)
+
+    render_template('favorites/index.html', birds=birds)
