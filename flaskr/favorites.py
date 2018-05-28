@@ -22,12 +22,16 @@ def index():
     bird_ids = db.execute(
         'SELECT bird_id FROM user_birds WHERE user_id = (?)', (user_id,)
     ).fetchall()
-    birds = []
-    for bird_id in bird_ids:
-        bird_info = db.execute(
-            'SELECT * FROM bird WHERE id = (?)', (bird_id[0],)
-        ).fetchone()
-        bird = Bird(bird_info[2], bird_info[3], bird_info[1])
-        birds.append(bird)
 
-    return render_template('favorites/index.html', birds=birds)
+    if bird_ids == []:
+        return render_template('favorites/index.html', birds=None)
+    else:
+        birds = []
+        for bird_id in bird_ids:
+            bird_info = db.execute(
+                'SELECT * FROM bird WHERE id = (?)', (bird_id[0],)
+            ).fetchone()
+            bird = Bird(bird_info[2], bird_info[3], bird_info[1])
+            birds.append(bird)
+
+        return render_template('favorites/index.html', birds=birds)

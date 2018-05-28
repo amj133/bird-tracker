@@ -1,7 +1,6 @@
 import pytest
 import ipdb
 from flaskr.db import get_db
-from flaskr.ebird_service import EbirdService
 
 def test_user_dashboard(client, auth):
     res = auth.login()

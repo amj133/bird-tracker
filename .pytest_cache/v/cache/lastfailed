@@ -4,5 +4,6 @@
   "tests/test_auth.py::test_register_validate_input": true, 
   "tests/test_auth.py::test_register_validate_input[billy-test-already registered]": true, 
   "tests/test_auth.py::test_register_validate_input[test-test-already registered]": true, 
-  "tests/test_factory.py::test_hello": true
+  "tests/test_factory.py::test_hello": true, 
+  "tests/test_favorites.py::test_user_favorites_displayed": true
 }
