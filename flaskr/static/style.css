@@ -132,3 +132,13 @@ input[type=submit] {
   align-self: start;
   min-width: 10em;
 }
+
+#search-container {
+  margin-top: 20px;
+}
+
+.fav-search {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}

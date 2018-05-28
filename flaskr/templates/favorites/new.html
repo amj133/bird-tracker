@@ -7,11 +7,15 @@
 {% block content %}
   <article class="post">
     <header>
-      <div>
-        <label for="latitude">Latitude</label>
-        <input name="latitude" id="latitude" required>
-        <label for="longitude">Longitude</label>
-        <input name="longitude" id="longitude" required>
+      <div id="search-container">
+        <div class="fav-search">
+          <label for="latitude">Latitude&nbsp;&nbsp;&nbsp;</label>
+          <input name="latitude" id="latitude" required><br>
+        </div>
+        <div class="fav-search">
+          <label for="longitude">Longitude</label>
+          <input name="longitude" id="longitude" required><br>
+        </div>
         <button value="button" class="favorite-search">Submit</button>
       </div>
     </header>
