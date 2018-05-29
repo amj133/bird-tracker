@@ -20,6 +20,9 @@
       </d iv>
     </header>
   </article>
+  <div class="loader">
+    <div class="loading"></div>
+  </div>
   <section class="search-results">
     <button onclick="addFavoriteBirds()" class="add-birds">Add Favorite Birds</button>
   </section>
@@ -31,6 +34,20 @@
       fetchBirds()
     })
 
+    const loader = $("loader");
+
+    // $(document).on({
+    //     ajaxStart: function() { loader.addClass("loading") },
+    //     ajaxStop: function() { loader.removeClass("loading") }
+    // });
+
+    $(document).ajaxStart(function(){
+     $("#loader").show();
+    });
+    $(document).ajaxComplete(function(){
+     $("#loader").hide();
+    });
+
     const getLatitude = () => {
       return $('#latitude')[0].value
     }
@@ -40,7 +57,7 @@
     }
 
     const fetchBirds = () => {
-      header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo' }}
+      header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo'}}
       const lat = getLatitude()
       const long = getLongitude()
       const url = `https://ebird.org/ws2.0/data/obs/geo/recent?lat=${lat}&lng=${long}&dist=10`

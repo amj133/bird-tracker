@@ -1,4 +1,5 @@
 [
   "tests/test_favorites.py::test_user_favorites_none_if_not_added", 
+  "tests/test_favorites.py::test_user_favorites_displayed", 
   "tests/test_favorites.py::test_user_favorites_search"
 ]

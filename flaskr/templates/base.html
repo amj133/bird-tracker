@@ -1,9 +1,13 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - BirdWatcher</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <nav>
+  <div class="bird-logo-container">
+    <img src="/static/bird4.png" id="bird-logo">
+  </div>&nbsp;&nbsp;
   <h1>BirdTracker</h1>
   <ul>
     {% if g.user %}

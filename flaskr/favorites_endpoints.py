@@ -13,7 +13,6 @@ def create():
     bird_info = request.form.getlist('birds[]')
     db = get_db()
     user_id = g.user['id']
-    ipdb.set_trace()
 
     for info in bird_info:
         species_code = info.split("/")[0]
