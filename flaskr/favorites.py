@@ -35,3 +35,12 @@ def index():
             birds.append(bird)
 
         return render_template('favorites/index.html', birds=birds)
+
+@bp.route('/<int :id>')
+@login_required
+def show(id):
+    db = get_db()
+    db.execute(
+        'SELECT * FROM bird WHERE bird_id = ?', (id,)
+    ).fetchone()
+    
