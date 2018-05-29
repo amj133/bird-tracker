@@ -18,10 +18,12 @@
       <article class="post">
         <header>
           <div>
-            <h3>{{ bird.com_name }}</h3>
+            <h3>
+              <a class="action" href="{{ url_for('favorites.show', id=bird.id) }}">{{ bird.com_name }}</a>
+            </h3>
             <div class="about">
-              Scientific Name: {{ bird.sci_name }}<br>
-              Species Code: {{ bird.species_code }}<br>
+              &nbsp;&nbsp;Scientific Name: {{ bird.sci_name }}<br>
+              &nbsp;&nbsp;Species Code: {{ bird.species_code }}<br>
             </div>
           </div>
         </header>
