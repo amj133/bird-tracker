@@ -31,7 +31,17 @@ def index():
             bird_info = db.execute(
                 'SELECT * FROM bird WHERE id = (?)', (bird_id[0],)
             ).fetchone()
-            bird = Bird(bird_info[2], bird_info[3], bird_info[1])
+            bird = Bird(bird_info[0], bird_info[2], bird_info[3], bird_info[1])
             birds.append(bird)
 
         return render_template('favorites/index.html', birds=birds)
+
+@bp.route('/<int:id>')
+@login_required
+def show(id):
+    db = get_db()
+    bird_info = db.execute('SELECT * FROM bird WHERE id = ?', (id,)).fetchone()
+    bird = Bird(bird_info[0], bird_info[2], bird_info[3], bird_info[1])
+    sightings = EbirdService().get_recent_nearby_sightings(g.user['latitude'], g.user['longitude'])
+    
+    return render_template('favorites/show.html', sightings=sightings, bird=bird)
