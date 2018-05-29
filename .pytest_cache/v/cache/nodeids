@@ -15,6 +15,7 @@
   "tests/test_ebird_service.py::test_instance_methods_get_notable_sightings", 
   "tests/test_factory.py::test_config", 
   "tests/test_favorites.py::test_user_favorites_none_if_not_added", 
-  "tests/test_favorites.py::test_user_favorites_displayed", 
+  "tests/test_favorites.py::test_user_favorites_displayed_in_index", 
+  "tests/test_favorites.py::test_user_favorites_show_page_has_recent_sightings", 
   "tests/test_favorites.py::test_user_favorites_search"
 ]
