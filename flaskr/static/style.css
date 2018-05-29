@@ -11,7 +11,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: serif;
+  font-family: 'Open Sans', sans-serif;
   color: #377ba8;
   margin: 1rem 0;
 }
@@ -26,6 +26,7 @@ hr {
 }
 
 nav {
+  height: 47px;
   background: lightgray;
   display: flex;
   align-items: center;
@@ -52,6 +53,7 @@ nav ul  {
 nav ul li a, nav ul li span, header .action {
   display: block;
   padding: 0.5rem;
+  text-decoration: none;
 }
 
 .content {
@@ -131,4 +133,38 @@ input.danger {
 input[type=submit] {
   align-self: start;
   min-width: 10em;
+}
+
+#search-container {
+  margin-top: 20px;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 20px;
+}
+
+#bird-logo {
+  height: 30px;
+}
+
+.fav-search {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+loading {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

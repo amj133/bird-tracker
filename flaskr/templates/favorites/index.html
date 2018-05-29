@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Favorite Birds{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if birds == None %}
+    <article class="post">
+      <header>
+        <div>
+          <h3>Go to search to add favorite birds!</h3>
+        </div>
+      </header>
+    </article>
+  {% else %}
+    {% for bird in birds %}
+      <article class="post">
+        <header>
+          <div>
+            <h3>{{ bird.com_name }}</h3>
+            <div class="about">
+              Scientific Name: {{ bird.sci_name }}<br>
+              Species Code: {{ bird.species_code }}<br>
+            </div>
+          </div>
+        </header>
+      </article>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

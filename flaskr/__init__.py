@@ -19,10 +19,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
     from . import db
     db.init_app(app)
 
@@ -32,5 +28,11 @@ def create_app(test_config=None):
     from . import dashboard
     app.register_blueprint(dashboard.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from . import favorites
+    app.register_blueprint(favorites.bp)
+
+    from . import favorites_endpoints
+    app.register_blueprint(favorites_endpoints.bp)
 
     return app

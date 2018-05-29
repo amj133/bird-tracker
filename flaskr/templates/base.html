@@ -1,18 +1,28 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - BirdWatcher</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <nav>
-  <h1>BirdWatcher</h1>
+  <div class="bird-logo-container">
+    <img src="/static/bird4.png" id="bird-logo">
+  </div>&nbsp;&nbsp;
+  <h1>BirdTracker</h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+      <li><a href="{{ url_for('favorites.index') }}">Favorites</a>
+      <li><a href="{{ url_for('favorites.new') }}">Search</a>
+      <li><a href="{{ url_for('auth.logout') }}">Logout</a>
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
   </ul>
 </nav>
+
 <section class="content">
   <header>
     {% block header %}{% endblock %}
@@ -20,5 +30,6 @@
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
+
   {% block content %}{% endblock %}
 </section>
