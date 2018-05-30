@@ -45,11 +45,17 @@ def test_user_favorites_delete_removes_bird_user_association(client, auth, app):
         response = client.get('/favorites/')
         assert 'Big Bird' not in response.data
 
-def test_user_favorites_search(client, auth):
+def test_user_favorites_search_by_location(client, auth):
     res = auth.login()
-    response = client.get('/favorites/search')
+    response = client.get('/search/location')
 
-    assert client.get('/').status_code == 200
     assert "Latitude" in response.data
     assert "Longitude" in response.data
     assert "Search" in response.data
+
+def test_user_favorites_search_by_species(client, auth):
+    res = auth.login()
+    response = client.get('/search/species')
+
+    assert 'Search for your favorite birds by species code' in response.data
+    assert 'Species Code' in response.data
