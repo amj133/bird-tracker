@@ -31,8 +31,9 @@ class EbirdService(object):
         json_sightings = self.get_response(url, header, params)
         return self.create_bird_sightings(json_sightings)
 
-    def get_recent_nearby_sightings(self, latitude, longitude):
-        url = 'https://ebird.org/ws2.0/data/obs/geo/recent'
+    def get_nearby_sightings_by_species(self, latitude, longitude, species_code):
+        # import ipdb; ipdb.set_trace()
+        url = 'https://ebird.org/ws2.0/data/obs/geo/recent/{}'.format(species_code)
         header = {'X-eBirdApiToken': 'hv9rjmnpb5vo'}
         params = {'lat': latitude, 'lng': longitude, 'maxResults': '10', 'dist': '25'}
         json_sightings = self.get_response(url, header, params)
