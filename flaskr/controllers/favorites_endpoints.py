@@ -3,7 +3,6 @@ from flask import (
 )
 from flaskr.auth import login_required
 from flaskr.db import get_db
-import ipdb
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 

@@ -1,5 +1,4 @@
 import requests
-import code
 from .bird_sighting import BirdSighting
 
 class EbirdService(object):

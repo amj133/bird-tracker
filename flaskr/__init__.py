@@ -1,5 +1,4 @@
 import os
-
 from flask import Flask
 
 def create_app(test_config=None):
@@ -22,20 +21,21 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import auth
+    from flaskr.controllers import auth
     app.register_blueprint(auth.bp)
 
-    from . import dashboard
+    from flaskr.controllers import dashboard
     app.register_blueprint(dashboard.bp)
     app.add_url_rule('/', endpoint='index')
 
-    from . import favorites
+    from flaskr.controllers import favorites
     app.register_blueprint(favorites.bp)
+    app.add_url_rule('/favorites/<int:id>/delete', endpoint='favorites.delete', methods=['POST',])
 
-    from . import favorites_endpoints
+    from flaskr.controllers import favorites_endpoints
     app.register_blueprint(favorites_endpoints.bp)
 
-    from . import bird_search
+    from flaskr.controllers import bird_search
     app.register_blueprint(bird_search.bp)
 
     return app

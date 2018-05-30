@@ -1,4 +1,6 @@
-from .ebird_service import EbirdService
+import sys
+sys.path.append('..')
+from flaskr.services.ebird_service import EbirdService
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
