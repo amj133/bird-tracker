@@ -5,19 +5,29 @@
 {% endblock %}
 
 {% block content %}
-  {% for sighting in sightings %}
+  {% if sightings == None %}
     <article class="post">
       <header>
         <div>
-          <h3>{{ sighting.location }}</h3>
-          <div class="about">
-            Scientific Name: {{ sighting.sci_name }}<br>
-            Observation Date: {{ sighting.obs_date }}<br>
-            Location: {{ sighting.latitude|string() + ", " + sighting.longitude|string() }}<br>
-            How Many: {{ sighting.how_many }}
-          </div>
+          <h3>No recent observations of this species near your location</h3>
         </div>
       </header>
     </article>
-  {% endfor %}
+  {% else %}
+    {% for sighting in sightings %}
+      <article class="post">
+        <header>
+          <div>
+            <h3>{{ sighting.location }}</h3>
+            <div class="about">
+              Scientific Name: {{ sighting.sci_name }}<br>
+              Observation Date: {{ sighting.obs_date }}<br>
+              Location: {{ sighting.latitude|string() + ", " + sighting.longitude|string() }}<br>
+              How Many: {{ sighting.how_many }}
+            </div>
+          </div>
+        </header>
+      </article>
+    {% endfor %}
+  {% endif %}
 {% endblock %}

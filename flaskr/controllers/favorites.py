@@ -28,7 +28,6 @@ def show(id):
     bird_info = db.execute('SELECT * FROM bird WHERE id = ?', (id,)).fetchone()
     bird = Bird(bird_info[0], bird_info[2], bird_info[3], str(bird_info[1]))
     sightings = EbirdService().get_nearby_sightings_by_species(g.user['latitude'], g.user['longitude'], bird.species_code)
-
     return render_template('favorites/show.html', sightings=sightings, bird=bird)
 
 @bp.route('/<int:id>/delete', methods=('POST',))
