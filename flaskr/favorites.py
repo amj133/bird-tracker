@@ -9,11 +9,6 @@ import ipdb
 
 bp = Blueprint('favorites', __name__, url_prefix='/favorites')
 
-@bp.route('/search')
-@login_required
-def new():
-    return render_template('favorites/new.html')
-
 @bp.route('/')
 @login_required
 def index():

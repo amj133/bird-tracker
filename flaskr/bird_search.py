@@ -13,3 +13,8 @@ bp = Blueprint('bird_search', __name__, url_prefix='/search')
 @login_required
 def by_species():
     return render_template('search/by_species.html')
+
+@bp.route('/location')
+@login_required
+def by_location():
+    return render_template('search/by_location.html')
