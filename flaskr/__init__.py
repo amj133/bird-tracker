@@ -35,4 +35,7 @@ def create_app(test_config=None):
     from . import favorites_endpoints
     app.register_blueprint(favorites_endpoints.bp)
 
+    from . import bird_search
+    app.register_blueprint(bird_search.bp)
+
     return app

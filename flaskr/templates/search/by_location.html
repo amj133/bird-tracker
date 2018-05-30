@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h3>{% block title %}Search for your favorite birds by area{% endblock %}</h3>
+{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <header>
+      <div id="search-container">
+        <div class="fav-search">
+          <label for="latitude">Latitude&nbsp;&nbsp;&nbsp;</label>
+          <input name="latitude" id="latitude" required><br>
+        </div>
+        <div class="fav-search">
+          <label for="longitude">Longitude</label>
+          <input name="longitude" id="longitude" required><br>
+        </div>
+        <button value="button" class="favorite-search-location">Search</button>
+      </d iv>
+    </header>
+  </article>
+  <div class="loader">
+    <div class="loading"></div>
+  </div>
+  <section class="search-results">
+    <button onclick="addFavoriteBirds()" class="add-birds">Add Favorite Birds</button>
+  </section>
+{% endblock %}
