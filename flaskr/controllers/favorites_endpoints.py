@@ -1,8 +1,12 @@
+from flaskr.services.ebird_service import EbirdService
+from .favorites import get_favorite_birds
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, current_app, redirect, render_template, request, url_for
 )
-from flaskr.auth import login_required
+from flaskr.controllers.auth import login_required
 from flaskr.db import get_db
+from flask_mail import Mail, Message
+from flaskr.services.mail_generator import MailGenerator
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 
@@ -29,3 +33,17 @@ def create():
         db.commit()
 
     return "Favorites Added"
+
+@bp.route('/favorites/observations', methods=['GET'])
+@login_required
+def email_fav_sightings():
+        user_id = g.user['id']
+        latitude = g.user['latitude']
+        longitude = g.user['longitude']
+        message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
+
+        mail = Mail(current_app)
+        msg = Message('Favorite Birds Report', sender='frankyrocksallday@gmail.com', recipients=['amj@vt.edu'])
+    	msg.body = message
+    	mail.send(msg)
+    	return "Sent"
