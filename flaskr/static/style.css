@@ -223,3 +223,20 @@ loading {
 .dropdown:hover .dropbtn {
     background-color: #bbc2c3;
 }
+
+.email-sightings {
+  display: flex;
+  justify-content: center;
+}
+
+#email-me {
+    background-color: #4c85af;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 3px;
+}
