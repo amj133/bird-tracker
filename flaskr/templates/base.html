@@ -4,17 +4,26 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<header class='hero-banner'>
+</header>
+
 <nav>
   <div class="bird-logo-container">
-    <img src="/static/bird4.png" id="bird-logo">
+    <img src="/static/images/bird4.png" id="bird-logo">
   </div>&nbsp;&nbsp;
   <h1>BirdTracker</h1>
   <ul>
     {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
+      <li><span style="color:black;">{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a>
       <li><a href="{{ url_for('favorites.index') }}">Favorites</a>
-      <li><a href="{{ url_for('favorites.new') }}">Search</a>
+      <li class="dropdown">
+        <span class="dropbtn">Search</span>
+        <div class="dropdown-content">
+          <a href="{{ url_for('favorites.new') }}">By Location</a>
+          <a href="{{ url_for('bird_search.by_species') }}">By Species Code</a>
+        </div>
+      </li>
       <li><a href="{{ url_for('auth.logout') }}">Logout</a>
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
@@ -32,4 +41,5 @@
   {% endfor %}
 
   {% block content %}{% endblock %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </section>
