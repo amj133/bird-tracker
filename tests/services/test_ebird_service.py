@@ -1,10 +1,10 @@
 import pytest
 from mock import MagicMock, patch
 from flask import g, session
-from flaskr.db import get_db
-from flaskr.ebird_service import EbirdService
+from birdy.db import get_db
+from birdy.services.ebird_service import EbirdService
 
-@patch('flaskr.ebird_service.EbirdService.get_notable_sightings')
+@patch('birdy.services.ebird_service.EbirdService.get_notable_sightings')
 def test_instance_methods_get_notable_sightings(self):
     service = EbirdService()
     service.get_notable_sightings.return_value = [

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Favorite Birds{% endblock %}</h1>
+  <h3>{% block title %}{{ variable }} Favorite Birds{% endblock %}</h3>
 {% endblock %}
 
 {% block content %}
@@ -32,5 +32,8 @@
         </header>
       </article>
     {% endfor %}
+    <div class="email-sightings">
+      <button onclick="emailFavSightings()" id="email-me">Email Nearby Observations</button>
+    </div>
   {% endif %}
 {% endblock %}

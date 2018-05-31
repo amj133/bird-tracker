@@ -1,5 +1,5 @@
 import pytest
-from flaskr.bird_sighting import BirdSighting
+from birdy.services.bird_sighting import BirdSighting
 
 def test_bird_sighting_has_attributes():
     attributes = {

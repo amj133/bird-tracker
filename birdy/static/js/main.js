@@ -81,3 +81,11 @@ const addFavoriteBirds = () => {
   $.ajax(postPayload(payload))
   alert('Added to your favorites!')
 }
+
+const emailFavSightings = () => {
+  $.ajax({
+    type: 'GET',
+    url: "/api/v1/favorites/observations"
+  })
+  alert('A report of your favorite bird observations near you is being processed.')
+}

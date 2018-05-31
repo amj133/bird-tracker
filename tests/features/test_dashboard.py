@@ -1,6 +1,6 @@
 import pytest
 import ipdb
-from flaskr.db import get_db
+from birdy.db import get_db
 
 def test_user_dashboard(client, auth):
     res = auth.login()
