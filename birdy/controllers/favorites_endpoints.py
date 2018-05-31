@@ -10,6 +10,7 @@ from birdy.services.mail_generator import MailGenerator
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 
+
 @bp.route('/favorites', methods=['POST'])
 @login_required
 def create():
@@ -34,6 +35,7 @@ def create():
 
     return "Favorites Added"
 
+
 @bp.route('/favorites/observations', methods=['GET'])
 @login_required
 def email_fav_sightings():
@@ -42,8 +44,11 @@ def email_fav_sightings():
     longitude = g.user['longitude']
     message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
     mail = Mail(current_app)
-    msg = Message('Favorite Birds Report', sender='frankyrocksallday@gmail.com', recipients=['amj@vt.edu'])
-    return "sent"
-	# msg.body = message
-	# mail.send(msg)
-	# return "Sent"
+    msg = Message(
+        'Favorite Birds Report',
+        sender='frankyrocksallday@gmail.com',
+        recipients=['amj@vt.edu']
+    )
+    msg.body = message
+    mail.send(msg)
+    return "Sent"
