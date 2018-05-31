@@ -1,5 +1,5 @@
 import pytest
-from flaskr.bird import Bird
+from birdy.bird import Bird
 
 def test_bird_has_attributes():
     attributes = {

@@ -1,10 +1,10 @@
 import sys
 sys.path.append('..')
-from flaskr.services.ebird_service import EbirdService
+from birdy.services.ebird_service import EbirdService
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
-from flaskr.controllers.auth import login_required
+from birdy.controllers.auth import login_required
 
 bp = Blueprint('dashboard', __name__)
 

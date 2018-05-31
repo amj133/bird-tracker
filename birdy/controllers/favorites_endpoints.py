@@ -1,12 +1,12 @@
-from flaskr.services.ebird_service import EbirdService
+from birdy.services.ebird_service import EbirdService
 from .favorites import get_favorite_birds
 from flask import (
     Blueprint, flash, g, current_app, redirect, render_template, request, url_for
 )
-from flaskr.controllers.auth import login_required
-from flaskr.db import get_db
+from birdy.controllers.auth import login_required
+from birdy.db import get_db
 from flask_mail import Mail, Message
-from flaskr.services.mail_generator import MailGenerator
+from birdy.services.mail_generator import MailGenerator
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 

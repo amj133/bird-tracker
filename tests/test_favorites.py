@@ -1,7 +1,7 @@
 import pytest
 import ipdb
 from flask import g, session
-from flaskr.db import get_db
+from birdy.db import get_db
 
 def test_user_favorites_none_if_not_added(client, auth):
     res = auth.login()

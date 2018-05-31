@@ -1,4 +1,4 @@
-from flaskr.controllers.favorites import get_favorite_birds
+from birdy.controllers.favorites import get_favorite_birds
 from .ebird_service import EbirdService
 
 class MailGenerator(object):
