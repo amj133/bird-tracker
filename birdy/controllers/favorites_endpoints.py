@@ -37,13 +37,13 @@ def create():
 @bp.route('/favorites/observations', methods=['GET'])
 @login_required
 def email_fav_sightings():
-        user_id = g.user['id']
-        latitude = g.user['latitude']
-        longitude = g.user['longitude']
-        message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
-
-        mail = Mail(current_app)
-        msg = Message('Favorite Birds Report', sender='frankyrocksallday@gmail.com', recipients=['amj@vt.edu'])
-    	msg.body = message
-    	mail.send(msg)
-    	return "Sent"
+    user_id = g.user['id']
+    latitude = g.user['latitude']
+    longitude = g.user['longitude']
+    message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
+    mail = Mail(current_app)
+    msg = Message('Favorite Birds Report', sender='frankyrocksallday@gmail.com', recipients=['amj@vt.edu'])
+    return "sent"
+	# msg.body = message
+	# mail.send(msg)
+	# return "Sent"
