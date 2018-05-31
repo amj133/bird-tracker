@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from dotenv import load_dotenv
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -7,13 +8,14 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'birdy.sqlite')
     )
+
     app.config.update(
     	DEBUG = True,
     	MAIL_SERVER = 'smtp.gmail.com',
     	MAIL_PORT = 465,
     	MAIL_USE_SSL = True,
-    	MAIL_USERNAME = 'frankyrocksallday@gmail.com',
-    	MAIL_PASSWORD = 'frankisthe5513man'
+    	MAIL_USERNAME = env_variables()['gmail_username'],
+    	MAIL_PASSWORD = env_variables()['gmail_password']
 	)
 
     if test_config is None:
@@ -47,3 +49,14 @@ def create_app(test_config=None):
     app.register_blueprint(bird_search.bp)
 
     return app
+
+def env_variables():
+    APP_ROOT = os.path.join(os.path.dirname(__file__), '..')
+    dotenv_path = os.path.join(APP_ROOT, '.env')
+    load_dotenv(dotenv_path)
+    ebird_api_key = os.getenv('EBIRD_API_KEY')
+    gmail_username = os.getenv('MAIL_USERNAME')
+    gmail_password = os.getenv('MAIL_PASSWORD')
+    return {'ebird_api_key': ebird_api_key,
+            'gmail_username': gmail_username,
+            'gmail_password': gmail_password}
