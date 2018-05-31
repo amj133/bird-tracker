@@ -1,5 +1,5 @@
 import pytest
-from birdy.bird import Bird
+from birdy.services.bird import Bird
 
 def test_bird_has_attributes():
     attributes = {
