@@ -1,1 +1,1 @@
-web: gunicorn birdy:app
+web: gunicorn "birdy:create_app()"
