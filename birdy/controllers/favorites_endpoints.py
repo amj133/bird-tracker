@@ -19,7 +19,7 @@ def create():
     user_id = g.user['id']
 
     for info in bird_info:
-        species_code = info.split("/")[0].encode('utf8')
+        species_code = str(info.split("/")[0])
         common_name = info.split("/")[1]
         sci_name = info.split("/")[2]
         query = text("INSERT INTO bird (species_code, common_name, sci_name) VALUES (:species_code, :common_name, :sci_name)")
