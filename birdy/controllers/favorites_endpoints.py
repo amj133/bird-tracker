@@ -16,7 +16,6 @@ bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 @login_required
 def create():
     bird_info = request.form.getlist('birds[]')
-    # db = get_db()
     user_id = g.user['id']
 
     for info in bird_info:
@@ -26,23 +25,17 @@ def create():
         query = text("INSERT INTO bird (species_code, common_name, sci_name) VALUES (:species_code, :common_name, :sci_name)")
         query = query.bindparams(species_code=species_code, common_name=common_name, sci_name=sci_name)
         get_db().engine.execute(query)
+        get_db().engine.dispose()
+
         query = text("SELECT bird.id FROM bird WHERE species_code = :species_code")
         query = query.bindparams(species_code=species_code)
         bird_id = get_db().engine.execute(query).fetchone()
-        # import ipdb; ipdb.set_trace()
+        get_db().engine.dispose()
+
         query = text("INSERT INTO user_birds (user_id, bird_id) VALUES (:user_id, :bird_id)")
         query = query.bindparams(user_id=int(user_id), bird_id=bird_id[0])
         get_db().engine.execute(query)
-        # db.execute(
-        #     'INSERT INTO bird (species_code, common_name, sci_name) VALUES (?, ?, ?)', (species_code.encode('utf8'), common_name, sci_name)
-        # )
-        # bird_id = db.execute(
-        #     'SELECT bird.id FROM bird WHERE species_code = ?', (species_code.encode('utf8'),)
-        # ).fetchone()
-        # db.execute(
-        #     'INSERT INTO user_birds (user_id, bird_id) VALUES (?, ?)', (int(user_id), bird_id[0])
-        # )
-        # db.commit()
+        get_db().engine.dispose()
 
     return "Favorites Added"
 
