@@ -2,12 +2,26 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 
+from flask_sqlalchemy import SQLAlchemy
+
+def create_db(app):
+    db = SQLAlchemy(app)
+    return db
+
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
+
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'birdy.sqlite')
+        # DATABASE=os.path.join(app.instance_path, 'birdy.sqlite')
     )
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/birdy_dev'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    db = SQLAlchemy(app)
+    app.db = db
+    # db = create_db(app)
+    # db.app = app
 
     app.config.update(
     	DEBUG = True,
