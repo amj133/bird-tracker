@@ -11,7 +11,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
     )
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/birdy_dev'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://riiwkhnijfacwh:fb7cfa813b0dcbf99b6132c9428bb12ae2f504b0756b65d317c4cf79fd130ad4@ec2-107-20-176-27.compute-1.amazonaws.com:5432/de31mpijhpg9hc'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/birdy_dev'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db = SQLAlchemy(app)
     app.db = db
