@@ -1,6 +1,5 @@
 [
   "tests/test_db.py::test_get_close_db", 
-  "tests/test_db.py::test_init_db_command", 
   "tests/test_factory.py::test_config", 
   "tests/features/test_auth.py::test_register", 
   "tests/features/test_auth.py::test_register_validate_input[--Username is required.]", 
