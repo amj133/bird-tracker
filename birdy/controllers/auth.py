@@ -22,23 +22,16 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        # elif db.engine.execute(
-        #     'SELECT id FROM user WHERE username = ?', (username,)
-        # ).fetchone() is not None:
-        #     error = 'User {} is already registered.'.format(username)
+        elif db.engine.execute(
+            text('SELECT id FROM birdy_user WHERE username = :username').bindparams(username=username)
+        ).fetchone() is not None:
+            error = 'User {} is already registered.'.format(username)
 
         if error is None:
             query = text("INSERT INTO birdy_user (username, password, latitude, longitude) VALUES (:username, :password, :latitude, :longitude)")
             query = query.bindparams(username=username, password=generate_password_hash(password), latitude=latitude, longitude=longitude)
             db.engine.execute(query)
-            # db.engine.execute(
-            #     'INSERT INTO user (username, password, latitude, longitude) VALUES (?, ?, ?, ?)', (username, generate_password_hash(password), latitude, longitude)
-            # )
-            # db.commit()
             return redirect(url_for('auth.login'))
-            # In : stmt = text("INSERT INTO company (id, name) VALUES (2, :reebok)")
-            # In : stmt = stmt.bindparams(reebok = "reebok")
-            # In : x = db.engine.execute(stmt)
 
         flash(error)
 
@@ -54,9 +47,6 @@ def login():
         query = text('SELECT * FROM birdy_user WHERE username = :username')
         query = query.bindparams(username=username)
         user = db.engine.execute(query).fetchone()
-        # user = db.engine.execute(
-        #     'SELECT * FROM user WHERE username = ?', (username,)
-        # ).fetchone()
 
         if user is None:
             error = 'Incorrect username.'
@@ -82,9 +72,6 @@ def load_logged_in_user():
         query = text('SELECT * FROM birdy_user WHERE id = :user_id')
         query = query.bindparams(user_id=user_id)
         g.user = get_db().engine.execute(query).fetchone()
-        # g.user = get_db().engine.execute(
-        #     'SELECT * FROM user WHERE id = ?', (user_id,)
-        # ).fetchone()
 
 @bp.route('/logout')
 def logout():
