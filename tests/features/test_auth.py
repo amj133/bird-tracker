@@ -2,6 +2,7 @@ import pytest
 import code
 from flask import g, session
 from birdy.db import get_db
+from sqlalchemy import text
 
 def test_register(client, app):
     assert client.get('/auth/register').status_code == 200
@@ -12,9 +13,9 @@ def test_register(client, app):
     assert 'http://localhost/auth/login' == response.headers['Location']
 
     with app.app_context():
-        assert get_db().execute(
-            "SELECT * FROM user WHERE username = 'a'",
-        ).fetchone() is not None
+        query = text("SELECT * FROM birdy_user WHERE username = :fake")
+        query = query.bindparams(fake='a')
+        assert get_db().engine.execute(query).fetchone() is not None
 
 @pytest.mark.parametrize(('username', 'password', 'message'), (
     ('', '', b'Username is required.'),

@@ -2,6 +2,7 @@ import pytest
 import ipdb
 from flask import g, session
 from birdy.db import get_db
+from sqlalchemy import text
 
 def test_user_favorites_none_if_not_added(client, auth):
     res = auth.login()
@@ -13,8 +14,8 @@ def test_user_favorites_none_if_not_added(client, auth):
 def test_user_favorites_displayed_in_index(client, auth, app):
     res = auth.login()
     with app.app_context():
-        get_db().execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('bgbrd', 'Big Bird', 'Birdus largus')")
-        get_db().execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
+        get_db().engine.execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('bgbrd', 'Big Bird', 'Birdus largus')")
+        get_db().engine.execute("INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)")
         response = client.get('/favorites/')
         assert 'Big Bird' in response.data
         assert 'Birdus largus' in response.data
@@ -23,8 +24,8 @@ def test_user_favorites_displayed_in_index(client, auth, app):
 def test_user_favorites_show_page_has_recent_sightings(client, auth, app):
     res = auth.login()
     with app.app_context():
-        get_db().execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('cangoo', 'Canada Goose', 'Branta canadensis')")
-        get_db().execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
+        get_db().engine.execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('cangoo', 'Canada Goose', 'Branta canadensis')")
+        get_db().engine.execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
         response = client.get('/favorites/1')
         assert 'Canada Goose' in response.data
         assert 'Branta canadensis' in response.data
@@ -36,8 +37,8 @@ def test_user_favorites_show_page_has_recent_sightings(client, auth, app):
 def test_user_favorites_delete_removes_bird_user_association(client, auth, app):
     res = auth.login()
     with app.app_context():
-        get_db().execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('bgbrd', 'Big Bird', 'Birdus largus')")
-        get_db().execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
+        get_db().engine.execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('bgbrd', 'Big Bird', 'Birdus largus')")
+        get_db().engine.execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
         response = client.get('/favorites/')
         assert 'Big Bird' in response.data
 
