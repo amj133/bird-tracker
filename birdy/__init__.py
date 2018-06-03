@@ -3,9 +3,11 @@ from flask import Flask
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
+from celery.schedules import crontab
+import celeryconfig
 
 celery = Celery(__name__, broker=os.getenv('REDIS_URL'))
-CELERY_IMPORTS = ("tasks", )
+celery.config_from_object(celeryconfig)
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
