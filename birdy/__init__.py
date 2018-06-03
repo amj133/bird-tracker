@@ -2,7 +2,10 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from celery import Celery
 
+celery = Celery(__name__, broker=os.getenv('REDIS_URL'))
+CELERY_IMPORTS = ("tasks", )
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -15,6 +18,12 @@ def create_app(test_config=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db = SQLAlchemy(app)
     app.db = db
+
+    # app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+    # app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+    # app.celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+
+    celery.conf.update(app.config)
 
     app.config.update(
     	DEBUG = True,
