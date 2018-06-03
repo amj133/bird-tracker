@@ -5,9 +5,10 @@ from flask import (
 )
 from birdy.controllers.auth import login_required
 from birdy.db import get_db
-from flask_mail import Mail, Message
+# from flask_mail import Mail, Message
 from birdy.services.mail_generator import MailGenerator
 from sqlalchemy import text
+from birdy.jobs.background_jobs import send_email
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 
@@ -44,12 +45,5 @@ def email_fav_sightings():
     latitude = g.user['latitude']
     longitude = g.user['longitude']
     message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
-    mail = Mail(current_app)
-    msg = Message(
-        'Favorite Birds Report',
-        sender='frankyrocksallday@gmail.com',
-        recipients=['amj@vt.edu']
-    )
-    msg.body = message
-    mail.send(msg)
+    send_email.delay(message)
     return "Sent"

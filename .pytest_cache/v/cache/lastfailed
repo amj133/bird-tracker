@@ -6,6 +6,7 @@
   "tests/test_auth.py::test_register_validate_input[test-test-already registered]": true, 
   "tests/test_bird.py": true, 
   "tests/test_bird_sighting.py": true, 
+  "tests/test_db.py::test_get_close_db": true, 
   "tests/test_db.py::test_init_db_command": true, 
   "tests/test_ebird_service.py": true, 
   "tests/test_factory.py::test_hello": true
