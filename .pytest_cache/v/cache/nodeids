@@ -1,9 +1,9 @@
 [
   "tests/test_factory.py::test_config", 
   "tests/features/test_auth.py::test_register", 
-  "tests/features/test_auth.py::test_register_validate_input[--Username is required.]", 
-  "tests/features/test_auth.py::test_register_validate_input[a--Password is required.]", 
-  "tests/features/test_auth.py::test_register_validate_input[billy-monkey-already registered]", 
+  "tests/features/test_auth.py::test_register_validate_input[---Username is required.]", 
+  "tests/features/test_auth.py::test_register_validate_input[a---Password is required.]", 
+  "tests/features/test_auth.py::test_register_validate_input[billy-monkey-billy@example-already registered]", 
   "tests/features/test_auth.py::test_login", 
   "tests/features/test_auth.py::test_login_validate_input[a-test-Incorrect username.]", 
   "tests/features/test_auth.py::test_login_validate_input[billy-b-Incorrect password.]", 

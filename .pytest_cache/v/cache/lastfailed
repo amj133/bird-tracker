@@ -1,4 +1,7 @@
 {
+  "tests/features/test_auth.py::test_register_validate_input[--Username is required.]": true, 
+  "tests/features/test_auth.py::test_register_validate_input[a--Password is required.]": true, 
+  "tests/features/test_auth.py::test_register_validate_input[billy-monkey-already registered]": true, 
   "tests/test_auth.py::test_login_validate_input[test-a-Incorrect password.]": true, 
   "tests/test_auth.py::test_login_validate_input[test-b-Incorrect password.]": true, 
   "tests/test_auth.py::test_register_validate_input": true, 
