@@ -5,7 +5,6 @@ from flask import (
 )
 from birdy.controllers.auth import login_required
 from birdy.db import get_db
-# from flask_mail import Mail, Message
 from birdy.services.mail_generator import MailGenerator
 from sqlalchemy import text
 from birdy.jobs.background_jobs import send_email
