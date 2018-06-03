@@ -14,13 +14,13 @@ class EbirdService(object):
         sightings = []
         for sighting in list(json_sightings):
             new_sighting = BirdSighting(
-                sighting['comName'],
-                sighting['sciName'],
-                sighting['obsDt'],
-                sighting['lat'],
-                sighting['lng'],
-                sighting['howMany'],
-                sighting['locName']
+                sighting.get('comName'),
+                sighting.get('sciName'),
+                sighting.get('obsDt'),
+                sighting.get('lat'),
+                sighting.get('lng'),
+                sighting.get('howMany'),
+                sighting.get('locName')
             )
             sightings.append(new_sighting)
         return sightings
