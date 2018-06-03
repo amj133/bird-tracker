@@ -7,6 +7,7 @@ CREATE TABLE birdy_user (
   latitude TEXT NOT NULL,
   longitude TEXT NOT NULL,
   username TEXT UNIQUE NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
 );
 
