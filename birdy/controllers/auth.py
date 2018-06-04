@@ -29,8 +29,8 @@ def register():
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
-            query = text("INSERT INTO birdy_user (username, email, password, latitude, longitude) VALUES (:username, :email, :password, :latitude, :longitude)")
-            query = query.bindparams(username=username, email=email, password=generate_password_hash(password), latitude=latitude, longitude=longitude)
+            query = text("INSERT INTO birdy_user (username, email, notify, password, latitude, longitude) VALUES (:username, :email, :notify, :password, :latitude, :longitude)")
+            query = query.bindparams(username=username, email=email, notify='daily', password=generate_password_hash(password), latitude=latitude, longitude=longitude)
             db.engine.execute(query)
             return redirect(url_for('auth.login'))
 
