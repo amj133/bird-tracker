@@ -7,7 +7,7 @@ from birdy.controllers.auth import login_required
 from birdy.db import get_db
 from birdy.services.mail_generator import MailGenerator
 from sqlalchemy import text
-from birdy.jobs.background_jobs import send_email
+from birdy.jobs.background_jobs import send_fav_sightings_email
 
 bp = Blueprint('favorites_endpoints', __name__, url_prefix='/api/v1')
 
@@ -41,8 +41,11 @@ def create():
 @login_required
 def email_fav_sightings():
     user_id = g.user['id']
+    email = g.user['email']
     latitude = g.user['latitude']
     longitude = g.user['longitude']
-    message = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
-    send_email.delay(message)
+    body = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
+    if body == '':
+        body = "No recent observations of this species near your location."
+    send_fav_sightings_email.delay(email, body)
     return "Sent"
