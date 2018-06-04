@@ -19,7 +19,10 @@ def send_email(email, body):
 
 @celery.task
 def send_fav_sightings_email(email, body):
-    send_email(email, body)
+    app = create_app()
+    app.app_context().push()
+    with app.app_context():
+        send_email(email, body)
 
 @celery.task
 def send_daily_sightings_emails():
