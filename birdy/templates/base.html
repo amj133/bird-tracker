@@ -15,7 +15,13 @@
   <ul>
     {% if g.user %}
       <li><span style="color:black;">{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a>
+      <li class="dropdown">
+        <span class="dropbtn">Dashboard</span>
+        <div class="dropdown-content">
+          <a href="{{ url_for('index') }}">View Sightings</a>
+          <a href="{{ url_for('dashboard.edit') }}">Edit Profile</a>
+        </div>
+      </li>
       <li><a href="{{ url_for('favorites.index') }}">Favorites</a>
       <li class="dropdown">
         <span class="dropbtn">Search</span>
