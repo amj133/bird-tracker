@@ -27,8 +27,8 @@ def edit():
         new_username = request.form['username']
         new_email = request.form['email']
         new_preference = request.form['notify']
-        query = text('UPDATE birdy_user SET username = :new_username, email = :new_email WHERE username = :old_username')
-        query = query.bindparams(new_username=new_username, new_email=new_email, old_username=username)
+        query = text('UPDATE birdy_user SET username = :new_username, email = :new_email, notify = :notify WHERE username = :old_username')
+        query = query.bindparams(new_username=new_username, new_email=new_email, old_username=username, notify=new_preference)
         get_db().engine.execute(query)
 
     return redirect(url_for('index'))
