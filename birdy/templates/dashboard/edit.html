@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h3>{% block title %}Dashboard - Edit Your Information{% endblock %}</h3>
+{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <header>
+      <div>
+        <h3>Current Information</h3>
+        <form method="POST">
+          <label for="username">Username</label>
+          <input name="username" id="username" value={{ username }} required><br>
+          <label for="email">Email</label>
+          <input name="email" id="email" value={{ email }} required><br>
+          <label for="email">Favorite Birds Email Notifications</label>
+          <select name="notify">
+            <option value="none">None</option>
+            <option value="daily" selected>Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select><br>
+          <input type="submit" value="Update Information">
+        </form>
+      </div>
+    </header>
+  </article>
+{% endblock %}
