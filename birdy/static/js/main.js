@@ -89,3 +89,89 @@ const emailFavSightings = () => {
   })
   alert('A report of your favorite bird observations near you is being processed.')
 }
+
+map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point);
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.comName
+             + '</h3><p> Scientific Name: ' + feature.properties.sciName
+             + '</h3><p> Location: ' + feature.properties.locName
+             + '</h3><p> Date & Time(24 hr): ' + feature.properties.obsDt
+             + '</h3><p> How Many: ' + feature.properties.howMany
+             + '</p>')
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
+});
+
+const getSpeciesCodes = () => {
+  return $(".species-code").text().split(" ").join(" ").trim().split(" ")
+}
+
+const getBirdSightings = (url, header) => {
+  return fetch(url, header)
+    .then((response) => response.json())
+    .then((favSightings) => favSightings)
+}
+
+const createGeoJSONCircle = function(center, radiusInKm) {
+  var points = 64;
+  var coords = {
+    latitude: center[1],
+    longitude: center[0]
+  };
+  var km = radiusInKm;
+  var ret = [];
+  var distanceX = km / (111.320 * Math.cos(coords.latitude * Math.PI / 180));
+  var distanceY = km / 110.574;
+  var theta, x, y;
+  for(var i = 0; i < points; i++) {
+    theta = (i / points) * (2 * Math.PI);
+    x = distanceX * Math.cos(theta);
+    y = distanceY * Math.sin(theta);
+    ret.push([coords.longitude + x, coords.latitude + y]);
+  }
+  ret.push(ret[0]);
+
+  return {
+    "type": "geojson",
+    "data": {
+      "type": "FeatureCollection",
+      "features": [{
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [ret]
+        }
+      }]
+    }
+  };
+};
+
+const createGeoJSONPoints = (sightings) => {
+  return sightings.map(function(birdSightings) {
+    return birdSightings.map(function(sighting) {
+      return {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [sighting.lng, sighting.lat]
+        },
+        "properties": {
+          "comName": sighting.comName,
+          "sciName": sighting.sciName,
+          "locName": sighting.locName,
+          "obsDt": sighting.obsDt,
+          "howMany": sighting.howMany
+        }
+      }
+    })
+  })
+}
