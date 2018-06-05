@@ -16,11 +16,13 @@ bp = Blueprint('favorites', __name__, url_prefix='/favorites')
 def index():
     db = get_db()
     user_id = g.user['id']
+    latitude = g.user['latitude']
+    longitude = g.user['longitude']
     birds = get_favorite_birds(user_id)
     if birds == []:
-        return ender_template('favorites/index.html', birds=None)
+        return render_template('favorites/index.html', birds=None)
     else:
-        return render_template('favorites/index.html', birds=birds)
+        return render_template('favorites/index.html', birds=birds, lat=float(latitude), lng=float(longitude))
 
 @bp.route('/<int:id>', methods=('GET',))
 @login_required
