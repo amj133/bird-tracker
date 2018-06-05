@@ -45,7 +45,7 @@
   <script type="text/javascript">
     $('.favorites-map').hide()
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW1qMTMzIiwiYSI6ImNqZmoyNDA1NzBkc3cycXFveTVxNDF6ZWkifQ.Qxx-FLv74uWIPQq1fmpwyA';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW1qMTMzIiwiYSI6ImNqaTF5aTNtNTFud3ozcXA4aDVpZXNjd3gifQ.qbCDgNEc8vIq-WZYV_taow';
 
     var map = new mapboxgl.Map({
       container: 'map',
@@ -53,12 +53,6 @@
       center: [{{ lng }}, {{ lat }} + 0.52],
       zoom: 8
     });
-
-    class GeoJsonPoint {
-      constructor() {
-        this.type = "Feature"
-      }
-    }
 
     const displaySightings = async () => {
       var createGeoJSONCircle = function(center, radiusInKm) {
@@ -100,18 +94,19 @@
         };
       };
 
-    map.addSource("polygon", createGeoJSONCircle([-105.27, 39.94], 30));
+      map.addSource("polygon", createGeoJSONCircle([-105.27, 39.94], 30));
 
-    map.addLayer({
-        "id": "polygon",
-        "type": "fill",
-        "source": "polygon",
-        "layout": {},
-        "paint": {
-            "fill-color": "rgb(90, 180, 200)",
-            "fill-opacity": 0.3
-        }
-    });
+      map.addLayer({
+          "id": "polygon",
+          "type": "fill",
+          "source": "polygon",
+          "layout": {},
+          "paint": {
+              "fill-color": "rgb(90, 180, 200)",
+              "fill-opacity": 0.3
+          }
+      });
+
       $('.favorites-map').show()
       const sightings = await getFavSightings()
       let points = sightings.map(function(birdSightings) {
