@@ -38,7 +38,7 @@ const birdsBySpeciesCodeUrl = () => {
 }
 
 const fetchBirds = (url) => {
-  header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo'}}
+  const header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo'}}
   fetch(url, header)
     .then((response) => response.json())
     .then((birds) => {

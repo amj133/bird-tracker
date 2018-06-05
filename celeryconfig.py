@@ -5,7 +5,7 @@ CELERY_TIMEZONE = 'UTC'
 CELERYBEAT_SCHEDULE = {
     'send_daily_fav_sightings_emails': {
         'task': 'birdy.jobs.background_jobs.send_daily_sightings_emails',
-        'schedule': crontab(hour=7),
+        'schedule': crontab(),
         'args': ()
     },
     'send_weekly_fav_sightings_emails': {

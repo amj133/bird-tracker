@@ -9,6 +9,7 @@
   "tests/features/test_auth.py::test_login_validate_input[billy-b-Incorrect password.]", 
   "tests/features/test_auth.py::test_logout", 
   "tests/features/test_dashboard.py::test_user_dashboard", 
+  "tests/features/test_dashboard.py::test_user_can_edit_profile", 
   "tests/features/test_favorites.py::test_user_favorites_none_if_not_added", 
   "tests/features/test_favorites.py::test_user_favorites_displayed_in_index", 
   "tests/features/test_favorites.py::test_user_favorites_show_page_has_recent_sightings", 

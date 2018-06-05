@@ -4,6 +4,7 @@ import tempfile
 import pytest
 from birdy import create_app
 from birdy.db import get_db, init_db
+from sqlalchemy import text
 
 with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'rb') as f:
     _data_sql = f.read().decode('utf8')
@@ -19,7 +20,7 @@ def app():
 
     with app.app_context():
         init_db()
-        get_db().engine.execute(_data_sql)
+        get_db().engine.execute(text(_data_sql))
 
     yield app
 

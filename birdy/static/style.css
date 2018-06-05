@@ -226,17 +226,47 @@ loading {
 
 .email-sightings {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #email-me {
-    background-color: #4c85af;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    border-radius: 3px;
+  background-color: #4c85af;
+  border: none;
+  color: white;
+  width: 35%;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 3px;
+}
+#view-map {
+  margin-top: 30px;
+  background-color: #4c85af;
+  border: none;
+  color: white;
+  width: 35%;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 3px;
+}
+
+.favorites-map {
+  display: flex;
+  justify-content: center;
+}
+
+#map {
+  margin-top: 55px;
+  right: 0;
+  height: 500px;
+  width: 85%;
+  z-index: 5;
+  border: 2px solid rgb(148, 147, 156);
 }
