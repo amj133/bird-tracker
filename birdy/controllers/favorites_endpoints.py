@@ -36,13 +36,10 @@ def create():
         bird_id = get_db().engine.execute(query).fetchone()
 
         query = text("INSERT INTO user_birds (user_id, bird_id) SELECT :user_id, :bird_id WHERE NOT EXISTS (SELECT * FROM user_birds WHERE user_id = :user_id AND bird_id = :bird_id)")
-        # INSERT INTO user_birds (user_id, bird_id)
-        #   SELECT 3, 7 WHERE NOT EXISTS
-        #   (SELECT * FROM user_birds WHERE user_id = 3 AND bird_id = 7);
         query = query.bindparams(user_id=int(user_id), bird_id=bird_id[0])
         get_db().engine.execute(query)
 
-    # return "Favorites Added"
+    return "favorites added"
 
 
 @bp.route('/favorites/observations', methods=['GET'])
@@ -53,7 +50,8 @@ def email_fav_sightings():
     latitude = g.user['latitude']
     longitude = g.user['longitude']
     body = MailGenerator().fav_bird_sightings_message(user_id, latitude, longitude)
+
     if body == '':
         body = "No recent observations of this species near your location."
+
     send_fav_sightings_email.delay(email, body)
-    return "Sent"

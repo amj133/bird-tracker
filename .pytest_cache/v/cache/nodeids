@@ -1,22 +1,9 @@
 [
-  "tests/test_factory.py::test_config", 
-  "tests/features/test_auth.py::test_register", 
-  "tests/features/test_auth.py::test_register_validate_input[---Username is required.]", 
-  "tests/features/test_auth.py::test_register_validate_input[a---Password is required.]", 
-  "tests/features/test_auth.py::test_register_validate_input[billy-monkey-billy@example-already registered]", 
-  "tests/features/test_auth.py::test_login", 
-  "tests/features/test_auth.py::test_login_validate_input[a-test-Incorrect username.]", 
-  "tests/features/test_auth.py::test_login_validate_input[billy-b-Incorrect password.]", 
-  "tests/features/test_auth.py::test_logout", 
-  "tests/features/test_dashboard.py::test_user_dashboard", 
-  "tests/features/test_dashboard.py::test_user_can_edit_profile", 
   "tests/features/test_favorites.py::test_user_favorites_none_if_not_added", 
   "tests/features/test_favorites.py::test_user_favorites_displayed_in_index", 
   "tests/features/test_favorites.py::test_user_favorites_show_page_has_recent_sightings", 
   "tests/features/test_favorites.py::test_user_favorites_delete_removes_bird_user_association", 
   "tests/features/test_favorites.py::test_user_favorites_search_by_location", 
   "tests/features/test_favorites.py::test_user_favorites_search_by_species", 
-  "tests/services/test_bird.py::test_bird_has_attributes", 
-  "tests/services/test_bird_sighting.py::test_bird_sighting_has_attributes", 
-  "tests/services/test_ebird_service.py::test_instance_methods_get_notable_sightings"
+  "tests/features/test_favorites.py::test_user_favorites_does_not_store_duplicate_birds"
 ]
