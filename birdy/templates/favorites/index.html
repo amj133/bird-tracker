@@ -101,7 +101,6 @@
     const getFavSightings = async () => {
       const speciesCodes = getSpeciesCodes()
       const header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo'}}
-      debugger;
       const lat = {{ lat }}
       const lng = {{ lng }}
       let sightings = speciesCodes.map(async (speciesCode) => {

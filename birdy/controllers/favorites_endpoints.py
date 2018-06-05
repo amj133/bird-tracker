@@ -22,19 +22,27 @@ def create():
         species_code = str(info.split("/")[0])
         common_name = info.split("/")[1]
         sci_name = info.split("/")[2]
-        query = text("INSERT INTO bird (species_code, common_name, sci_name) VALUES (:species_code, :common_name, :sci_name)")
-        query = query.bindparams(species_code=species_code, common_name=common_name, sci_name=sci_name)
-        get_db().engine.execute(query)
+
+        query = text("SELECT * FROM bird WHERE species_code = :species_code")
+        query = query.bindparams(species_code=species_code)
+
+        if get_db().engine.execute(query).fetchone() == None:
+            query = text("INSERT INTO bird (species_code, common_name, sci_name) VALUES (:species_code, :common_name, :sci_name)")
+            query = query.bindparams(species_code=species_code, common_name=common_name, sci_name=sci_name)
+            get_db().engine.execute(query)
 
         query = text("SELECT bird.id FROM bird WHERE species_code = :species_code")
         query = query.bindparams(species_code=species_code)
         bird_id = get_db().engine.execute(query).fetchone()
 
-        query = text("INSERT INTO user_birds (user_id, bird_id) VALUES (:user_id, :bird_id)")
+        query = text("INSERT INTO user_birds (user_id, bird_id) SELECT :user_id, :bird_id WHERE NOT EXISTS (SELECT * FROM user_birds WHERE user_id = :user_id AND bird_id = :bird_id)")
+        # INSERT INTO user_birds (user_id, bird_id)
+        #   SELECT 3, 7 WHERE NOT EXISTS
+        #   (SELECT * FROM user_birds WHERE user_id = 3 AND bird_id = 7);
         query = query.bindparams(user_id=int(user_id), bird_id=bird_id[0])
         get_db().engine.execute(query)
 
-    return "Favorites Added"
+    # return "Favorites Added"
 
 
 @bp.route('/favorites/observations', methods=['GET'])
