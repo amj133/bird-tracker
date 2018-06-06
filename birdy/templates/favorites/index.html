@@ -45,103 +45,40 @@
   <script type="text/javascript">
     $('.favorites-map').hide()
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW1qMTMzIiwiYSI6ImNqZmoyNDA1NzBkc3cycXFveTVxNDF6ZWkifQ.Qxx-FLv74uWIPQq1fmpwyA';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW1qMTMzIiwiYSI6ImNqaTF6dGZ6cTBhejIza3FzbGhsOHBmZG8ifQ.YRKopJwU0idtffBarsWgaA';
 
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
-      center: [{{ lng }}, {{ lat }} + 0.52],
+      center: [{{ lng }}, {{ lat }}],
       zoom: 8
     });
 
-    class GeoJsonPoint {
-      constructor() {
-        this.type = "Feature"
-      }
-    }
-
     const displaySightings = async () => {
-      var createGeoJSONCircle = function(center, radiusInKm) {
-        var points = 64;
-
-        var coords = {
-            latitude: center[1],
-            longitude: center[0]
-        };
-
-        var km = radiusInKm;
-
-        var ret = [];
-        var distanceX = km/(111.320*Math.cos(coords.latitude*Math.PI/180));
-        var distanceY = km/110.574;
-
-        var theta, x, y;
-        for(var i=0; i<points; i++) {
-            theta = (i/points)*(2*Math.PI);
-            x = distanceX*Math.cos(theta);
-            y = distanceY*Math.sin(theta);
-
-            ret.push([coords.longitude+x, coords.latitude+y]);
-        }
-        ret.push(ret[0]);
-
-        return {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [ret]
-                    }
-                }]
-            }
-        };
-      };
-
-    map.addSource("polygon", createGeoJSONCircle([-105.27, 39.94], 30));
-
-    map.addLayer({
-        "id": "polygon",
-        "type": "fill",
-        "source": "polygon",
-        "layout": {},
-        "paint": {
-            "fill-color": "rgb(90, 180, 200)",
-            "fill-opacity": 0.3
-        }
-    });
-      $('.favorites-map').show()
-      const sightings = await getFavSightings()
-      let points = sightings.map(function(birdSightings) {
-        return birdSightings.map(function(sighting) {
-          return {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [sighting.lng, sighting.lat]
-            },
-            "properties": {
-              "comName": sighting.comName,
-              "sciName": sighting.sciName,
-              "locName": sighting.locName,
-              "obsDt": sighting.obsDt,
-              "howMany": sighting.howMany
-            }
+      map.addSource("polygon", createGeoJSONCircle([{{ lng }}, {{ lat }}], 30));
+      map.addLayer({
+          "id": "polygon",
+          "type": "fill",
+          "source": "polygon",
+          "layout": {},
+          "paint": {
+              "fill-color": "rgb(90, 180, 200)",
+              "fill-opacity": 0.3
           }
-        })
-      })
+      });
+      $('.favorites-map').show()
+      const rawSightings = await getFavSightings()
+      let sightingsGeoJSON = createGeoJSONPoints(rawSightings)
       let i = 0
-      points.forEach(function(point) {
+      sightingsGeoJSON.forEach(function(sightings) {
         map.addLayer({
-          "id": "stations" + i,
+          "id": "sightings" + i,
           "type": "circle",
           "source": {
             "type": "geojson",
             "data": {
               "type": "FeatureCollection",
-              "features": point
+              "features": sightings
             }
           },
           "paint": {
@@ -151,52 +88,23 @@
             "circle-stroke-color": "#fff"
           }
         })
-        map.on('mouseenter', 'stations' + i, function () {
+        map.on('mouseenter', 'sightings' + i, function () {
             map.getCanvas().style.cursor = 'pointer';
         });
-        map.on('mouseleave', 'stations' + i, function () {
+        map.on('mouseleave', 'sightings' + i, function () {
             map.getCanvas().style.cursor = '';
         });
         i += 1
       })
     }
 
-    map.on('click', function(e) {
-      var features = map.queryRenderedFeatures(e.point);
-
-      if (!features.length) {
-        return;
-      }
-
-      var feature = features[0];
-
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML('<h3>' + feature.properties.comName
-                 + '</h3><p> Scientific Name: ' + feature.properties.sciName
-                 + '</h3><p> Location: ' + feature.properties.locName
-                 + '</h3><p> Date & Time(24 hr): ' + feature.properties.obsDt
-                 + '</h3><p> How Many: ' + feature.properties.howMany
-                 + '</p>')
-        .setLngLat(feature.geometry.coordinates)
-        .addTo(map);
-    });
-
-    const getSpeciesCodes = () => {
-      return $(".species-code").text().split(" ").join(" ").trim().split(" ")
-    }
-
-    const getBirdSightings = (url, header) => {
-      return fetch(url, header)
-        .then((response) => response.json())
-        .then((favSightings) => favSightings)
-    }
-
     const getFavSightings = async () => {
       const speciesCodes = getSpeciesCodes()
       const header = {headers: {'X-eBirdApiToken': 'hv9rjmnpb5vo'}}
+      const lat = {{ lat }}
+      const lng = {{ lng }}
       let sightings = speciesCodes.map(async (speciesCode) => {
-        const url = `https://ebird.org/ws2.0/data/obs/geo/recent/${speciesCode}?lat=39.94&lng=-105.27&distance=25`
+        const url = `https://ebird.org/ws2.0/data/obs/geo/recent/${speciesCode}?lat=${lat}&lng=${lng}&distance=25`
         const newSightings = await getBirdSightings(url, header)
         return newSightings
       })

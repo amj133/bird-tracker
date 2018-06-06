@@ -16,6 +16,7 @@
   "tests/features/test_favorites.py::test_user_favorites_delete_removes_bird_user_association", 
   "tests/features/test_favorites.py::test_user_favorites_search_by_location", 
   "tests/features/test_favorites.py::test_user_favorites_search_by_species", 
+  "tests/features/test_favorites.py::test_user_favorites_does_not_store_duplicate_birds", 
   "tests/services/test_bird.py::test_bird_has_attributes", 
   "tests/services/test_bird_sighting.py::test_bird_sighting_has_attributes", 
   "tests/services/test_ebird_service.py::test_instance_methods_get_notable_sightings"

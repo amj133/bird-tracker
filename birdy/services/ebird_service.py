@@ -19,8 +19,9 @@ class EbirdService(object):
                 sighting.get('obsDt'),
                 sighting.get('lat'),
                 sighting.get('lng'),
-                sighting.get('howMany'),
-                sighting.get('locName')
+                sighting.get('howMany') or "Not specified",
+                sighting.get('locName'),
+                sighting.get('speciesCode')
             )
             sightings.append(new_sighting)
         return sightings

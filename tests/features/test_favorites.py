@@ -2,6 +2,9 @@ import pytest
 import ipdb
 from flask import g, session
 from birdy.db import get_db
+from sqlalchemy import text
+import json
+
 
 def test_user_favorites_none_if_not_added(client, auth):
     res = auth.login()
@@ -59,3 +62,14 @@ def test_user_favorites_search_by_species(client, auth):
 
     assert 'Search for your favorite birds by species code' in response.data
     assert 'Species Code' in response.data
+
+def test_user_favorites_does_not_store_duplicate_birds(client, auth, app):
+    res = auth.login()
+    with app.app_context():
+        get_db().engine.execute("INSERT INTO bird (species_code, common_name, sci_name) VALUES ('bgbrd', 'Big Bird', 'Birdus largus')")
+        get_db().engine.execute('INSERT INTO user_birds (user_id, bird_id) VALUES (1, 1)')
+        data = {'birds': 'bgbrd/Big Bird/Birdus largus'}
+        client.post(
+            'api/v1/favorites', data=data
+        )
+        assert get_db().engine.execute("SELECT * FROM bird WHERE species_code = 'bgbrd'").fetchall().__len__() == 1
