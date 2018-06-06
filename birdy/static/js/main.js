@@ -56,7 +56,9 @@ const fetchBirds = (url) => {
           $(".search-results").prepend(`<input type="checkbox" value="${bird.speciesCode}/${bird.comName}/${bird.sciName}" class="bird-info">${bird.comName} (${bird.sciName})</option><br>`)
         }
       })
-      $(".add-birds").show();
+      if(birds[0] != undefined) {
+        $(".add-birds").show();
+      }
     })
 };
 
