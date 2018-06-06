@@ -9,7 +9,8 @@ def test_bird_sighting_has_attributes():
         'lat': '39.34',
         'lng': '-152.27',
         'howMany': 3,
-        'locName': 'Great Lake'
+        'locName': 'Great Lake',
+        'speciesCode': 'bgbrd'
     }
 
     sighting = BirdSighting(
@@ -19,7 +20,8 @@ def test_bird_sighting_has_attributes():
         attributes['lat'],
         attributes['lng'],
         attributes['howMany'],
-        attributes['locName']
+        attributes['locName'],
+        attributes['speciesCode']
     )
 
     assert type(sighting) == BirdSighting
@@ -30,3 +32,4 @@ def test_bird_sighting_has_attributes():
     assert sighting.longitude == '-152.27'
     assert sighting.how_many == 3
     assert sighting.location == 'Great Lake'
+    assert sighting.species_code == 'bgbrd'
