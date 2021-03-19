@@ -36,7 +36,7 @@ ipdb==0.11
 ipython==5.7.0
 ipython-genutils==0.2.0
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 kombu==4.2.1
 Mako==1.0.7
 mamba==0.9.3
